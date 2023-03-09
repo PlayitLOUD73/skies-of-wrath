@@ -3,7 +3,9 @@
 ## Type of Game
 
 ### Overview
-The game will be a scrolling shooter. The player will control a ship that will fly over a scrolling background fighting different enemies.
+The game will be a vertically scrolling shooter. The player will control a ship that will fly over a scrolling background fighting different enemies.
+
+The background will be an ocean, static enemies will appear in the form of boats occassionally
 
 ### Gimmick
 * Power distribution system to manage strength of shields, movement, and weapon power.
@@ -16,8 +18,11 @@ The game will be a scrolling shooter. The player will control a ship that will f
 * Shields
 * Score system and high score
 * Enemy AI
+    * Pre planned routes/ formations
+    * dynamic spawning of formations
 * Different kinds of enemies
-* Ground enemies (turrets) and buildings (factories)
+* Ground enemies (boats)
+* Scrolling background
 
 # Development Design
 
@@ -61,10 +66,10 @@ I would like to have input from a game controller, with keyboard as a fallback c
 * start pauses the game
 
 ### Keyboard Control Scheme (WIP)
-* WASD controls player movment
-* Space is fire primary weapon
-* Enter is fire secondawy weapon
-* Arrow keys controls distribution of power
+* Mouse controls player movment
+* Left Mouse Button is fire primary weapon
+* Right Mouse Button is fire secondawy weapon
+* WASD controls distribution of power
 * ESC pauses the game
 
 ## Technical Challenges
