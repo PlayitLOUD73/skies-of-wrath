@@ -1,24 +1,28 @@
 import pygame
 from src.view import View
-from src.entities.player import Player
+#from player import Player
 from src.controller import Controller
+from src.model import Model
 
 clock = pygame.time.Clock()
-clock.tick(60)
+
 
 ents = []
 
 view = View()
 view.view_init()
 
-controller = Controller()
+model = Model()
+model.setup()
 
-player = Player()
+controller = Controller()
 
 while True:
     
+    clock.tick(60)
+
     events = controller.get_events()
     
-    # model.update(events)
+    model.update(events)
 
-    view.update_screen(player)
+    view.update_screen(model)
