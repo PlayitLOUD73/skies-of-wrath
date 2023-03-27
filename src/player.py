@@ -20,11 +20,26 @@ class Player(pygame.sprite.Sprite):
 
 
 
-    def update(self, velocity):
+    def update(self, mousePos):
+
+        print(mousePos)
 
         # velocity = pygame.Vector2(velocity.x / 2.0, velocity.y / 2.0)
+        velocity = pygame.math.Vector2()
+        #difference = mousePos - pygame.math.Vector2(self.rect.centerx, self.rect.centery)
 
-        self.rect.center = velocity
+        difference = mousePos
+
+        if difference.magnitude_squared() == 0:
+            return
+
+        if difference.magnitude_squared() > 100.0:
+            difference.normalize()
+            difference.scale_to_length(10.0)
+
+        velocity = difference        
+        #self.rect.center += velocity
+
+        self.rect.centerx = self.rect.centerx + velocity.x
+        self.rect.centery = self.rect.centery + velocity.y
         
-        
-        pass

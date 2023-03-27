@@ -1,5 +1,6 @@
 import pygame
 from src.player import Player
+from src.controller import MouseEvent
 
 class Model:
 
@@ -10,6 +11,7 @@ class Model:
         self.playerGroup = pygame.sprite.Group()
         self.playerGroup.add(player)
         pygame.mouse.set_visible(False)
+        pygame.event.set_grab(True)
 
         self.projectileGroup = pygame.sprite.Group()
         #pygame.mouse.set_pos((256,256))
@@ -19,16 +21,11 @@ class Model:
         x = 0
         y = 0
         for event in events:
-            if event == pygame.K_UP:
-                y = -1
-            if event == pygame.K_DOWN:
-                y = 1
-            if event == pygame.K_RIGHT:
-                x = 1
-            if event == pygame.K_LEFT:
-                x = -1
-            if event == "LMB":
-                self.player.shootBullet(self)
+            if isinstance(event, MouseEvent):
+                if event.lmb:
+                    self.player.shootBullet(self)
+                x = event.relX
+                y = event.relY
         
         return pygame.Vector2(x, y)
 
@@ -38,7 +35,7 @@ class Model:
         velocity = self.readInput(events)
         mx, my = pygame.mouse.get_pos()
 
-        self.playerGroup.update(pygame.Vector2(mx, my))
+        self.playerGroup.update(velocity)
         self.projectileGroup.update()
 
         pass
