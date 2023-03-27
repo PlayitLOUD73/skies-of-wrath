@@ -19,10 +19,12 @@ controller = Controller()
 
 while True:
     
+    
     clock.tick(60)
 
     events = controller.get_events()
     
-    model.update(events)
+    if not controller.pauseStatus:
+        model.update(events)
 
     view.update_screen(model)

@@ -11,12 +11,24 @@ class MouseEvent:
 
 class Controller:
 
-    
+    def __init__(self):
+        self.pauseStatus = True
+        self.pause()
+
+    def pause(self):
+        self.pauseStatus = not self.pauseStatus
+
+        if self.pauseStatus:
+            pygame.mouse.set_visible(True)
+            pygame.event.set_grab(False)
+        else:
+            pygame.mouse.set_visible(False)
+            pygame.event.set_grab(True)
 
     def get_events(self):
         
         sensitivity = 1
-        
+
         exportKeys = []
         x, y = pygame.mouse.get_rel()
         #print(x, y)
@@ -42,20 +54,9 @@ class Controller:
                 if mouse_presses[0]:
                     #exportKeys.append("LMB")
                     mouse.lmb = True
-        
-
-
-        
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_UP]:
-            exportKeys.append(pygame.K_UP)
-        elif keys[pygame.K_DOWN]:
-            exportKeys.append(pygame.K_DOWN)
-        elif keys[pygame.K_LEFT]:
-            exportKeys.append(pygame.K_LEFT)
-        elif keys[pygame.K_RIGHT]:
-            exportKeys.append(pygame.K_RIGHT)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.pause()
 
         exportKeys.append(mouse)
         return exportKeys
