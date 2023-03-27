@@ -1,6 +1,7 @@
 import pygame
 from src.player import Player
 from src.controller import MouseEvent
+from src.textures.ocean import Ocean
 
 class Model:
 
@@ -16,7 +17,21 @@ class Model:
         #pygame.mouse.set_pos((256,256))
         #print(pygame.mouse.get_pos())
         #print(pygame.mouse.get_visible())
+
+        self.createBackground()
+
+    def createBackground(self):
         
+        self.backgroundGroup = pygame.sprite.Group()
+        
+        for i in range(8):
+            for j in range(12):
+                oceanTile = Ocean(i*64, j*64)
+                self.backgroundGroup.add(oceanTile)
+            for j in range(12):
+                oceanTile = Ocean(i*64, j*-64)
+                self.backgroundGroup.add(oceanTile)
+
     def readInput(self, events):
         x = 0
         y = 0
@@ -37,5 +52,6 @@ class Model:
 
         self.playerGroup.update(velocity)
         self.projectileGroup.update()
+        self.backgroundGroup.update()
 
         pass

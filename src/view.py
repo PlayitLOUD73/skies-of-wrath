@@ -1,7 +1,7 @@
 import pygame
 #from model import Model
 
-SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 512, 720
+SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 512, 768
 screenColor = (0,0,0)
 
 class View:
@@ -14,6 +14,8 @@ class View:
 
         self.surface.fill(screenColor)
 
+        model.backgroundGroup.draw(self.surface)
+        
         model.playerGroup.draw(self.surface)
         model.projectileGroup.draw(self.surface)
 
