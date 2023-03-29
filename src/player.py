@@ -13,11 +13,14 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = 256
         self.rect.centery = 700
+        self.hp = 100
+
+    def damage(self, x):
+        self.hp -= x
 
     def shootBullet(self, model):
         bullet = Bullet(self.rect.centerx, self.rect.centery - 16, True)
         model.projectileGroup.add(bullet)
-
 
 
     def update(self, mousePos):

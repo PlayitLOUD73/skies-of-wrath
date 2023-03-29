@@ -19,6 +19,8 @@ class View:
         model.playerGroup.draw(self.surface)
         model.projectileGroup.draw(self.surface)
 
+        model.enemyGroup.draw(self.surface)
+
         # self.surface.blit(model.player.player.image, model.player.player.rect)
 
         pygame.display.update()

@@ -2,16 +2,19 @@ import pygame
 from src.player import Player
 from src.controller import MouseEvent
 from src.textures.ocean import Ocean
+from src.enemies.ufo import UFO
 
 class Model:
 
     def setup(self):
         player = Player()
 
-        self.player = player
-        self.playerGroup = pygame.sprite.Group()
+        self.playerGroup = pygame.sprite.GroupSingle()
         self.playerGroup.add(player)
-
+        
+        self.enemyGroup = pygame.sprite.Group()
+        
+        self.spawnUFO()
 
         self.projectileGroup = pygame.sprite.Group()
         #pygame.mouse.set_pos((256,256))
@@ -32,13 +35,41 @@ class Model:
                 oceanTile = Ocean(i*64, j*-64)
                 self.backgroundGroup.add(oceanTile)
 
+    def spawnUFO(self):
+        
+        newUFO = UFO()
+
+        self.enemyGroup.add(newUFO)
+
+
+    def checkCollisions(self):
+
+        # projectiles and enemies
+
+        col = pygame.sprite.groupcollide(self.enemyGroup, self.projectileGroup, False, True)
+
+        for x in col:
+            x.damage(10)
+            if x.hp <= 0:
+                x.kill()
+
+        # projectiles and player
+        if self.playerGroup.sprite is not None:
+            col = pygame.sprite.spritecollide(self.playerGroup.sprite, self.projectileGroup, True)
+
+            for x in col:
+                self.playerGroup.sprite.damage(10)
+                if self.playerGroup.sprite.hp <= 0:
+                    self.playerGroup.sprite.kill()
+
+
     def readInput(self, events):
         x = 0
         y = 0
         for event in events:
             if isinstance(event, MouseEvent):
                 if event.lmb:
-                    self.player.shootBullet(self)
+                    self.playerGroup.sprite.shootBullet(self)
                 x = event.relX
                 y = event.relY
 
@@ -53,5 +84,8 @@ class Model:
         self.playerGroup.update(velocity)
         self.projectileGroup.update()
         self.backgroundGroup.update()
+        self.enemyGroup.update(self)
+        self.checkCollisions()
+
 
         pass
