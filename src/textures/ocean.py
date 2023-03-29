@@ -12,4 +12,5 @@ class Ocean(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.topleft = self.rect.topleft[0], self.rect.topleft[1] + 1
-        
+        if self.rect.topleft[1] >= 768:
+            self.rect.topleft = self.rect.topleft[0], -704
