@@ -15,12 +15,14 @@ view.view_init()
 model = Model()
 model.setup()
 
+FPS = 60
+
 controller = Controller()
 
 while True:
     
     
-    clock.tick(60)
+    clock.tick(FPS)
 
     events = controller.get_events()
     
