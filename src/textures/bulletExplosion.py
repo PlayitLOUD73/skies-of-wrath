@@ -21,10 +21,10 @@ class BulletExplosion(pygame.sprite.Sprite):
     def update(self):
 
         self.iteration += 1
-        if self.iteration >= 7:
+        if self.iteration >= 14:
             self.kill()
-        else: 
-            self.image = self.anim[self.iteration]
+        elif self.iteration % 2 == 0: 
+            self.image = self.anim[int(self.iteration / 2)]
 
 
 
