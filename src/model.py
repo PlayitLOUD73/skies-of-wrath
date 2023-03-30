@@ -3,6 +3,7 @@ from src.player import Player
 from src.controller import MouseEvent
 from src.textures.ocean import Ocean
 from src.enemies.ufo import UFO
+from src.textures.bulletExplosion import BulletExplosion
 
 class Model:
 
@@ -17,6 +18,7 @@ class Model:
         self.spawnUFO()
 
         self.projectileGroup = pygame.sprite.Group()
+        self.animationGroup = pygame.sprite.Group()
         #pygame.mouse.set_pos((256,256))
         #print(pygame.mouse.get_pos())
         #print(pygame.mouse.get_visible())
@@ -49,6 +51,9 @@ class Model:
         col = pygame.sprite.groupcollide(self.enemyGroup, self.projectileGroup, False, True)
 
         for x in col:
+            for y in col[x]:
+                explosion = BulletExplosion(y.rect.centerx, y.rect.centery)
+                self.animationGroup.add(explosion)
             x.damage(10)
             if x.hp <= 0:
                 x.kill()
@@ -85,6 +90,7 @@ class Model:
         self.projectileGroup.update()
         self.backgroundGroup.update()
         self.enemyGroup.update(self)
+        self.animationGroup.update()
         self.checkCollisions()
 
 
