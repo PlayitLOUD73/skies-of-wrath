@@ -5,6 +5,7 @@ from src.textures.ocean import Ocean
 from src.enemies.ufo import UFO
 from src.textures.bulletExplosion import BulletExplosion
 from src.textures.shipExplosion import ShipExplosion
+from src.systems.spawnController import SpawnController
 
 class Model:
 
@@ -26,6 +27,8 @@ class Model:
 
         self.createBackground()
 
+        self.spawnController = SpawnController(self)
+
     def createBackground(self):
         
         self.backgroundGroup = pygame.sprite.Group()
@@ -40,12 +43,17 @@ class Model:
 
     def spawnUFO(self):
         
-        newUFO = UFO()
+        newUFO = UFO(100, 100)
 
         self.enemyGroup.add(newUFO)
 
 
     def checkCollisions(self):
+
+
+        # projectiles and projectiles
+
+        #col = pygame.sprite.groupcollide(self.projectileGroup, self.projectileGroup, True, True)
 
         # projectiles and enemies
 
@@ -68,7 +76,22 @@ class Model:
             for x in col:
                 self.playerGroup.sprite.damage(10)
                 if self.playerGroup.sprite.hp <= 0:
+                    explosion = ShipExplosion(self.playerGroup.sprite.rect.centerx, self.playerGroup.sprite.rect.centery)
+                    self.animationGroup.add(explosion)
                     self.playerGroup.sprite.kill()
+
+        # player and enemies
+        if self.playerGroup.sprite is not None:
+            col = pygame.sprite.spritecollide(self.playerGroup.sprite, self.enemyGroup, True)
+
+            for x in col:
+                explosion = ShipExplosion(self.playerGroup.sprite.rect.centerx, self.playerGroup.sprite.rect.centery)
+                self.animationGroup.add(explosion)
+                self.playerGroup.sprite.kill()  
+                explosion = ShipExplosion(x.rect.centerx, x.rect.centery)
+                self.animationGroup.add(explosion)
+                x.kill()
+
 
 
     def readInput(self, events):
@@ -95,6 +118,7 @@ class Model:
         self.enemyGroup.update(self)
         self.animationGroup.update()
         self.checkCollisions()
+        self.spawnController.update()
 
 
         pass

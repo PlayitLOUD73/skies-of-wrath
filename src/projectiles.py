@@ -12,9 +12,9 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.centerx = x
         self.rect.centery = y
         if direction:
-            self.speed = 15.0
+            self.speed = 10.0
         else:
-            self.speed = -15.0
+            self.speed = -10.0
     
     def update(self):
         self.rect.centery -= self.speed
