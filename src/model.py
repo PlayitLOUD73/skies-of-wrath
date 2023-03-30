@@ -4,6 +4,7 @@ from src.controller import MouseEvent
 from src.textures.ocean import Ocean
 from src.enemies.ufo import UFO
 from src.textures.bulletExplosion import BulletExplosion
+from src.textures.shipExplosion import ShipExplosion
 
 class Model:
 
@@ -56,6 +57,8 @@ class Model:
                 self.animationGroup.add(explosion)
             x.damage(10)
             if x.hp <= 0:
+                explosion = ShipExplosion(x.rect.centerx, x.rect.centery)
+                self.animationGroup.add(explosion)
                 x.kill()
 
         # projectiles and player
