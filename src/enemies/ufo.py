@@ -37,9 +37,10 @@ class UFO(pygame.sprite.Sprite):
         
         # shooting logic
 
-        # self.bulletIter += 1
-        # if self.bulletIter % 60 == 0:
-        #     self.shootBullet(model)
+        self.bulletIter += 1
+        if self.bulletIter % 60 == 0:
+            if random.randrange(3) == 0:
+                self.shootBullet(model)
         
         #     self.shoot = True
         # if self.shoot:
