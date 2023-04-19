@@ -98,8 +98,10 @@ control.
 I might change the gimmick from the power system (I cannot think of an implmentation that would be
 fun) to a procedurally generated island system to have ground combatants.
 
+I think the gimmick will be unique enemy types and random parameters to make the game feel different enough. 
+
 # Challenges Faced
-Creating enemy AI is difficult, but I have some ideas to implement before the next milestone.
+Creating enemy AI is difficult, and I will be keeping it simple since the game is fun with the simple AI.
 
 # Timeline
 
@@ -125,22 +127,22 @@ but these are necessary first
 9. **DONE** Create first playable prototype
     * Enemis can be killed and the player can be killed
 
-## Milestone 3 April 12
-1. Menu System
+## Milestone 3 April 18
+1. **DONE** Menu System
     * Have a proper game over screen, pause screen, and restart game
     * Game can be played as is
-2. Scoring
+2. **DONE** Scoring
     * Have a score tracker that changes when enemies are killed
-3. UI
+3. **DONE** UI
     * Include score and player health
-3. Advanced Enemy AI
+3. **WONT DO** Advanced Enemy AI
     * add pathing and dynamic ai decisions
-4. Add enemy types
-5. Create land bases (islands?)
+4. **WIP** Add enemy types
+5. **WONT DO** Create land bases (islands?)
     * These can be randomly added and have enemies to kill
 
 ## Final Submission April 26
-1. Power system
+1. **WONT DO** Power system
     * Create the power system to modify specs of shields, weapons, and movement speed
     * Always a tradeoff
 2. Music/ Sound Effects

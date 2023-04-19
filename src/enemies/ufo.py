@@ -23,6 +23,8 @@ class UFO(pygame.sprite.Sprite):
 
         self.speed = random.randrange(3) + 2
 
+        self.score = 100
+
     def shootBullet(self, model):
         bullet = Bullet(self.rect.centerx, self.rect.centery + 24, False)
         model.projectileGroup.add(bullet)

@@ -6,6 +6,8 @@ from src.enemies.ufo import UFO
 from src.textures.bulletExplosion import BulletExplosion
 from src.textures.shipExplosion import ShipExplosion
 from src.systems.spawnController import SpawnController
+#from src.systems.laser import Laser
+from src.enemies.advancedUfo import AdvancedUFO
 
 class Model:
 
@@ -14,6 +16,8 @@ class Model:
 
         self.playerGroup = pygame.sprite.GroupSingle()
         self.playerGroup.add(player)
+
+        
         
         self.enemyGroup = pygame.sprite.Group()
         
@@ -21,13 +25,22 @@ class Model:
 
         self.projectileGroup = pygame.sprite.Group()
         self.animationGroup = pygame.sprite.Group()
+
+        self.enemyGroup.add(AdvancedUFO(128, -64))
+
         #pygame.mouse.set_pos((256,256))
         #print(pygame.mouse.get_pos())
         #print(pygame.mouse.get_visible())
 
-        self.createBackground()
+        #self.createBackground()
 
         self.spawnController = SpawnController(self)
+
+        self.score = 0
+
+        # 0 -> normal
+        # 1 -> gameOver
+        self.state = 0
 
     def createBackground(self):
         
@@ -67,6 +80,7 @@ class Model:
             if x.hp <= 0:
                 explosion = ShipExplosion(x.rect.centerx, x.rect.centery)
                 self.animationGroup.add(explosion)
+                self.score += x.score
                 x.kill()
 
         # projectiles and player
@@ -78,7 +92,9 @@ class Model:
                 if self.playerGroup.sprite.hp <= 0:
                     explosion = ShipExplosion(self.playerGroup.sprite.rect.centerx, self.playerGroup.sprite.rect.centery)
                     self.animationGroup.add(explosion)
+                    self.state = 1
                     self.playerGroup.sprite.kill()
+                    return
 
         # player and enemies
         if self.playerGroup.sprite is not None:
@@ -87,6 +103,7 @@ class Model:
             for x in col:
                 explosion = ShipExplosion(self.playerGroup.sprite.rect.centerx, self.playerGroup.sprite.rect.centery)
                 self.animationGroup.add(explosion)
+                self.state = 1 # game over state
                 self.playerGroup.sprite.kill()  
                 explosion = ShipExplosion(x.rect.centerx, x.rect.centery)
                 self.animationGroup.add(explosion)
@@ -112,13 +129,17 @@ class Model:
         velocity = self.readInput(events)
         mx, my = pygame.mouse.get_pos()
 
-        self.playerGroup.update(velocity)
+        if self.state == 0:
+            self.playerGroup.update(velocity)
+            self.spawnController.update()
+            self.checkCollisions()
+
         self.projectileGroup.update()
-        self.backgroundGroup.update()
+        # self.backgroundGroup.update()
         self.enemyGroup.update(self)
         self.animationGroup.update()
-        self.checkCollisions()
-        self.spawnController.update()
+        
+        
 
 
         pass

@@ -25,23 +25,10 @@ class Controller:
             pygame.mouse.set_visible(False)
             pygame.event.set_grab(True)
 
-    def get_events(self):
-        
-        sensitivity = 1
+    def get_events(self, model):
 
         exportKeys = []
         x, y = pygame.mouse.get_rel()
-        #print(x, y)
-
-        #x = x * sensitivity
-        #y = y * sensitivity
-
-        # if abs(x) > 40:
-        #     x = 40
-        # if abs(y) > 40:
-        #     y = 40
-
-        # print(x, y)
 
         mouse = MouseEvent(x, y, False, False)
 
@@ -56,7 +43,14 @@ class Controller:
                     mouse.lmb = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self.pause()
+                    if model.state == 0:
+                        self.pause()
+                    else:
+                        pygame.quit()
+                        sys.exit()
+                if event.key == pygame.K_RETURN:
+                    if model.state != 0:
+                        model.state = -1
 
         exportKeys.append(mouse)
         return exportKeys

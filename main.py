@@ -9,11 +9,11 @@ clock = pygame.time.Clock()
 
 ents = []
 
-view = View()
-view.view_init()
-
 model = Model()
 model.setup()
+
+view = View()
+view.view_init()
 
 FPS = 60
 
@@ -24,9 +24,12 @@ while True:
     
     clock.tick(FPS)
 
-    events = controller.get_events()
+    events = controller.get_events(model)
     
     if not controller.pauseStatus:
         model.update(events)
+
+        if model.state == -1:
+            model.setup()
 
     view.update_screen(model)

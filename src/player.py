@@ -19,7 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.hp -= x
 
     def shootBullet(self, model):
-        bullet = Bullet(self.rect.centerx, self.rect.centery - 16, True)
+        bullet = Bullet(self.rect.centerx, self.rect.centery - 24, True)
         model.projectileGroup.add(bullet)
 
 

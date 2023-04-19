@@ -1,6 +1,7 @@
 import pygame
 import random
 from src.enemies.ufo import UFO
+from src.enemies.advancedUfo import AdvancedUFO
 
 class SpawnController:
 
@@ -19,8 +20,11 @@ class SpawnController:
             tiles.append(num)
 
         for x in tiles:
-            ufo = UFO(32 * x, -32)
+            if (random.randrange(100) < 5):
+                ufo = AdvancedUFO(32 * x, -32)
+            else:
+                ufo = UFO(32 * x, -32)
             self.parent.enemyGroup.add(ufo)
     def update(self):
-        if len(self.parent.enemyGroup.sprites()) == 0:
+        if len(self.parent.enemyGroup.sprites()) < 5:
             self.spawnEnemyWave(random.randrange(8)+2)

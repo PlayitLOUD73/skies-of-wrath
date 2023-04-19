@@ -6,4 +6,4 @@ from src.textures.animation import Animation
 class ShipExplosion(Animation):
 
     def __init__(self, x, y):
-        Animation.__init__(self, x, y, 'shipExplosion', 12)
+        Animation.__init__(self, x, y, 'shipExplosion', 12, 12, 2)
