@@ -13,6 +13,19 @@ class View:
         pygame.font.init()
         self.font = pygame.font.Font(pygame.font.get_default_font(), 16)
         self.largeFont = pygame.font.Font(pygame.font.get_default_font(), 32)
+
+    def healthBar(self, health):
+        
+        if health <= 70 and health >= 40:
+            color = (255, 255, 0)
+        elif health < 40:
+            color = (255, 0, 0)
+        else:
+            color = (0, 255, 0)
+
+        healthRect = pygame.rect.Rect(400, 10, health, 10)
+        pygame.draw.rect(self.surface, color, healthRect)
+
     
     def fonts(self, score, state):
         testText = self.font.render(str(score), True, white, screenColor)
@@ -36,6 +49,7 @@ class View:
 
         self.surface.fill(screenColor)
 
+
         # model.backgroundGroup.draw(self.surface)
         
         model.playerGroup.draw(self.surface)
@@ -43,9 +57,14 @@ class View:
 
         model.enemyGroup.draw(self.surface)
 
+        model.powerupGroup.draw(self.surface)
+
         model.animationGroup.draw(self.surface)
 
         self.fonts(model.score, model.state)
+
+        if model.state == 0:
+            self.healthBar(model.playerGroup.sprite.hp)
 
         # self.surface.blit(model.player.player.image, model.player.player.rect)
 

@@ -9,6 +9,8 @@ from src.systems.spawnController import SpawnController
 #from src.systems.laser import Laser
 from src.enemies.advancedUfo import AdvancedUFO
 
+from src.systems.powerups import powerupController
+
 class Model:
 
     def setup(self):
@@ -25,6 +27,8 @@ class Model:
 
         self.projectileGroup = pygame.sprite.Group()
         self.animationGroup = pygame.sprite.Group()
+
+        self.powerupGroup = pygame.sprite.Group()
 
         self.enemyGroup.add(AdvancedUFO(128, -64))
 
@@ -81,6 +85,9 @@ class Model:
                 explosion = ShipExplosion(x.rect.centerx, x.rect.centery)
                 self.animationGroup.add(explosion)
                 self.score += x.score
+                newPowerup = powerupController.powerUpHandler(x.rect.centerx, x.rect.centery)
+                if newPowerup is not None:
+                    self.powerupGroup.add(newPowerup)
                 x.kill()
 
         # projectiles and player
@@ -109,6 +116,13 @@ class Model:
                 self.animationGroup.add(explosion)
                 x.kill()
 
+        # player and powerups
+        if self.playerGroup.sprite is not None:
+            col = pygame.sprite.spritecollide(self.playerGroup.sprite, self.powerupGroup, True)
+
+            for x in col:
+                x.powerup(self.playerGroup.sprite)
+
 
 
     def readInput(self, events):
@@ -135,6 +149,7 @@ class Model:
             self.checkCollisions()
 
         self.projectileGroup.update()
+        self.powerupGroup.update()
         # self.backgroundGroup.update()
         self.enemyGroup.update(self)
         self.animationGroup.update()
