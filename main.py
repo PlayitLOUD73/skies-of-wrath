@@ -12,6 +12,8 @@ ents = []
 model = Model()
 model.setup()
 
+model.state = 2
+
 view = View()
 view.view_init()
 
@@ -26,7 +28,7 @@ while True:
 
     events = controller.get_events(model)
     
-    if not controller.pauseStatus:
+    if not controller.pauseStatus and model.state != 2:
         model.update(events)
 
         if model.state == -1:

@@ -11,6 +11,8 @@ from src.enemies.advancedUfo import AdvancedUFO
 
 from src.systems.powerups import powerupController
 
+from src.systems.soundEffects import Sounds
+
 class Model:
 
     def setup(self):
@@ -22,23 +24,15 @@ class Model:
         
         
         self.enemyGroup = pygame.sprite.Group()
-        
-        self.spawnUFO()
 
         self.projectileGroup = pygame.sprite.Group()
         self.animationGroup = pygame.sprite.Group()
 
         self.powerupGroup = pygame.sprite.Group()
 
-        self.enemyGroup.add(AdvancedUFO(128, -64))
-
-        #pygame.mouse.set_pos((256,256))
-        #print(pygame.mouse.get_pos())
-        #print(pygame.mouse.get_visible())
-
-        #self.createBackground()
-
         self.spawnController = SpawnController(self)
+
+        self.sound = Sounds()
 
         self.score = 0
 
@@ -88,6 +82,7 @@ class Model:
                 newPowerup = powerupController.powerUpHandler(x.rect.centerx, x.rect.centery)
                 if newPowerup is not None:
                     self.powerupGroup.add(newPowerup)
+                self.sound.playExplosion()
                 x.kill()
 
         # projectiles and player
@@ -121,7 +116,7 @@ class Model:
             col = pygame.sprite.spritecollide(self.playerGroup.sprite, self.powerupGroup, True)
 
             for x in col:
-                x.powerup(self.playerGroup.sprite)
+                x.powerup(self, self.playerGroup.sprite)
 
 
 
@@ -132,6 +127,7 @@ class Model:
             if isinstance(event, MouseEvent):
                 if event.lmb:
                     self.playerGroup.sprite.shootBullet(self)
+                    self.sound.playLaser()
                 x = event.relX
                 y = event.relY
 

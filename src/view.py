@@ -9,6 +9,7 @@ class View:
 
     def view_init(self):
         pygame.display.set_caption("Skies of Wrath")
+        
         self.surface = pygame.display.set_mode(SCREEN_SIZE)
         pygame.font.init()
         self.font = pygame.font.Font(pygame.font.get_default_font(), 16)
@@ -31,15 +32,36 @@ class View:
         testText = self.font.render(str(score), True, white, screenColor)
 
         gameOverText = self.largeFont.render("Game Over", True, white, screenColor)
+        instructionsText = self.font.render("Press Enter to Start", True, white, screenColor)
+        instructionsText2 = self.font.render("Press ESC to Quit", True, white, screenColor)
+
+        title = self.largeFont.render("Skies of War", True, white, screenColor)
+
+        instructRect = instructionsText.get_rect()
+        instructRect.center = SCREEN_WIDTH // 2, (SCREEN_HEIGHT // 2) + 32
+
+        instructRect2 = instructionsText2.get_rect()
+        instructRect2.center = SCREEN_WIDTH // 2, (SCREEN_HEIGHT // 2) + 48
 
         testRect = testText.get_rect()
         testRect.topleft = (24, 24)
 
         gameRect = gameOverText.get_rect()
-        gameRect.center = SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2
+        gameRect.center = SCREEN_WIDTH // 2, (SCREEN_HEIGHT // 2) - 128
+
+        titleRect = title.get_rect()
+        titleRect.center = SCREEN_WIDTH // 2, (SCREEN_HEIGHT // 2) - 128
+        
 
         if state == 1:
             self.surface.blit(gameOverText, gameRect)
+            self.surface.blit(instructionsText, instructRect)
+            self.surface.blit(instructionsText2, instructRect2)
+
+        if state == 2:
+            self.surface.blit(title, titleRect)
+            self.surface.blit(instructionsText, instructRect)
+            self.surface.blit(instructionsText2, instructRect2)
 
         self.surface.blit(testText, testRect)
 

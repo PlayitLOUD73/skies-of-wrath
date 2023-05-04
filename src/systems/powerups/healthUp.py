@@ -9,5 +9,6 @@ class HealthUp(Powerup):
 
         Powerup.__init__(self, 'heartPowerup.png', x, y)
 
-    def powerup(self, player):
+    def powerup(self, model, player):
+        model.sound.playHeal()
         player.hp = 100

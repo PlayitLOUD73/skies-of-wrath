@@ -38,8 +38,7 @@ class Controller:
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_presses = pygame.mouse.get_pressed()
-                if mouse_presses[0]:
-                    #exportKeys.append("LMB")
+                if mouse_presses[0] and model.state == 0:
                     mouse.lmb = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
