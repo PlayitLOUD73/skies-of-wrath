@@ -1,4 +1,6 @@
 # skies-of-wrath
+[Github](https://github.com/PlayitLOUD73/skies-of-wrath)
+Demo: gameDemo.m4v
 
 ## Introduction
 
