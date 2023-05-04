@@ -25,7 +25,6 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, mousePos):
 
-        # print(mousePos)
 
         # velocity = pygame.Vector2(velocity.x / 2.0, velocity.y / 2.0)
         velocity = pygame.math.Vector2()

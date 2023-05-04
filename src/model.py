@@ -1,7 +1,6 @@
 import pygame
 from src.player import Player
 from src.controller import MouseEvent
-from src.textures.ocean import Ocean
 from src.enemies.ufo import UFO
 from src.textures.bulletExplosion import BulletExplosion
 from src.textures.shipExplosion import ShipExplosion
@@ -39,25 +38,6 @@ class Model:
         # 0 -> normal
         # 1 -> gameOver
         self.state = 0
-
-    def createBackground(self):
-        
-        self.backgroundGroup = pygame.sprite.Group()
-        
-        for i in range(8):
-            for j in range(12):
-                oceanTile = Ocean(i*64, j*64)
-                self.backgroundGroup.add(oceanTile)
-            for j in range(12):
-                oceanTile = Ocean(i*64, j*-64)
-                self.backgroundGroup.add(oceanTile)
-
-    def spawnUFO(self):
-        
-        newUFO = UFO(100, 100)
-
-        self.enemyGroup.add(newUFO)
-
 
     def checkCollisions(self):
 

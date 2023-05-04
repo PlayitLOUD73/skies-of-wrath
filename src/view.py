@@ -35,7 +35,7 @@ class View:
         instructionsText = self.font.render("Press Enter to Start", True, white, screenColor)
         instructionsText2 = self.font.render("Press ESC to Quit", True, white, screenColor)
 
-        title = self.largeFont.render("Skies of War", True, white, screenColor)
+        title = self.largeFont.render("Skies of Wrath", True, white, screenColor)
 
         instructRect = instructionsText.get_rect()
         instructRect.center = SCREEN_WIDTH // 2, (SCREEN_HEIGHT // 2) + 32
